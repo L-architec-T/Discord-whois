@@ -1,11 +1,8 @@
-# discord.id
-Get any discord user or bot by id !
-
-
 # Preview
-![img](https://i.imgur.com/FUvsqY1.png)
+![img](https://cdn.discordapp.com/attachments/887300218268311552/968487811294593044/Capture_decran_de_2022-04-26_14-24-23.png)
 
 
 # SETUP
 
-rename `config.example.js` to `config.js` and complet them.
+1. Put a token bot in `config.js`<br>
+2. Launch `npm start`
