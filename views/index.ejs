@@ -1,0 +1,37 @@
+<%- include("./partials/header.ejs") %>
+<%- include("./partials/loader.ejs") %>
+
+<aside class="profile-card">
+<header>
+	<% if (error) { %>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <%= error %>
+            </div>
+	<% } %>
+	
+		<form method="POST">
+				
+			<br><label for="userid" class="usr_title"><font color="#fff">Whois Discord Users</font></label><br><br>
+				
+				<input type="text" class="form-control" id="userid" name="user" aria-describedby="help" autocomplete="off"  placeholder="User ID ou Token" autofocus required>
+				<br>
+				<button type="submit" class="btn btn-blurple rounded" style="width: 100% !important;">Submit</button>
+			
+		</form><br>
+		
+	<div class="card-body notice_footer">
+		<p id="info" class="card-text text-muted">Non affilié à Discord, Inc.</p>
+	</div>
+
+		<div id="devtool-status"></div>
+
+		<br><br><br><br><br>
+	
+	</header>
+	
+	<div class="profile-bio"></div>
+
+</aside>
+
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="canonical" href="https://https://user.x-bot.fr/" />
+    <title>X-BOT • Whois Discord Users</title>
+    <meta name="description" content="• <%= user.username.substr(0,32) %>#<%= user.discriminator %>">
+    <meta name="keywords" content="discord, bot, français, whois, xbot, x-bot, x-bot_v2" />
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+    <link rel="icon" type="image/png" href="<%= user.displayAvatarURL({ dynamic: true, format: "png", size: 1024 }) %>" />
+    <meta name="twitter:url" content="https://https://user.x-bot.fr/">
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@X_Developpment" />
+    <meta name="twitter:title" content="X-BOT • Whois Discord Users" />
+    <meta name="twitter:description" content="• <%= user.username.substr(0,32) %>#<%= user.discriminator %>" />
+    <meta name="twitter:image" content="<%= user.displayAvatarURL({ dynamic: true, format: "png", size: 1024 }) %>" />
+    <meta name="theme-color" content="#7289da">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- JS -->
+    <script src="/js/JQuery.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+</head>
+
+<%- include("./partials/header.ejs") %>
+<%- include("./partials/loader.ejs") %>
+<%
+    function checkDays(date) {
+        let now = new Date()
+        let diff = now.getTime() - date.getTime()
+        let days = Math.floor(diff / 86400000)
+        return days + (days === 1 ? " jour" : " jours")
+    }
+    function generateBadge(verified = false) {
+        if (flags.length < 1) return;
+        if (!verified && flags.find(i => i.name === "Bot")) return `<img draggable="false" class="rounded ml-2 botbadge" src="${flags.find(i => i.name === "Bot").url}">`;
+        if (verified && flags.find(i => i.name === "Verified Bot")) return `<img draggable="false" class="rounded ml-2 botbadge-v" src="${flags.find(i => i.name === "Verified Bot").url}" data-toggle="tooltip" data-placement="top" title="Robot vérifié">`;
+        return `<img draggable="false" class="rounded ml-2 botbadge" src="${flags.find(i => i.name === "Bot").url}">`;
+    }
+%>
+
+
+<aside class="profile-card">
+
+    <header>
+	
+	<button class="btn btn-discord-green rounded float-left" onclick="location.href='/'"><img src="https://cdn.discordapp.com/attachments/887300218268311552/968470094814523442/arrow-left.png" style="width: 15px;height: 20px;"></button><br>
+    
+        <a href="https://discord.x-bot.fr" target="_blank">
+            <img src="<%= user.displayAvatarURL({ dynamic: true, format: "png", size: 1024 }) %>" draggable="false">
+        </a>
+        
+        <h1><%= user.username.substr(0,32) %><font color="#6c757d" style="font-size: 17px;"><strong>#<%= user.discriminator %></strong></font></h1>
+		<%- user.bot ? (user.bot && user.verified) ? generateBadge(true) : generateBadge() : "" %>
+		
+		<% 
+			flags.forEach(badge => { 
+				if (badge.name === "Bot" || badge.name === "Verified Bot") return;
+				else {
+			%>
+			<img class="img-fluid badges" draggable="false" src="<%= badge.url %>" data-toggle="tooltip" data-placement="top" title="<%= badge.name %>">
+			<% 
+				}
+			}) 
+		%>
+    
+    </header>
+
+    <div class="profile-bio">
+    
+        <p><strong>Pseudo</strong> : <font color='#7289da'><%= user.username.substr(0,32) %></font></p>
+		<p><strong>Descriminateur</strong> : <font color='#7289da'>#<%= user.discriminator %></font></p>
+		<p><strong>ID</strong> : <font color='#7289da'><%= user.id %></font></p>
+		<p><strong>Bot</strong> : <font color='#7289da'><%= user.bot ? "Oui" : "Non" %><%= user.verified ? "" : "" %></font></p>
+		<p><strong>Créé le</strong> : <font color='#7289da'><%= moment(user.createdAt).format('ddd L à LT') %></font></p>
+		<p><strong>Ce compte à</strong> : <font color='#7289da'><%= checkDays(user.createdAt) %></font></p>
+    
+    </div>
+
+    <ul class="profile-social-links">
+        
+        <li>
+            <a href="https://discord.com/users/<%= user.id %>" target="_blank">
+                <img src="https://logo-marque.com/wp-content/uploads/2020/12/Discord-Logo.png">
+            </a>
+        </li>
+        
+        <li>
+            <a href="#" target="_blank">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/HD_transparent_picture.png/1200px-HD_transparent_picture.png">
+            </a>
+        </li>
+        
+        <li>
+            <a href="https://discordinvites.net/profile/<%= user.id %>" target="_blank">
+                <img src="https://discordinvites.net/assets/imgs/discordinvites/blue_100.png">
+            </a>
+        </li>
+    
+    </ul>
+
+</aside>
+
+<script>
+    $(".badges").tooltip();
+    $(".botbadge").tooltip();
+    $(".botbadge-v").tooltip();
+</script>
+
+</body>
+</html>
